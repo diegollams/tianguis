@@ -46,6 +46,7 @@ group :development, :test do
   gem 'faker'
   gem 'capybara'
   gem 'chromedriver-helper'
+  gem 'rails-controller-testing'
 end
 
 group :development do
