@@ -1,16 +1,15 @@
 require 'rails_helper'
 
 RSpec.describe User, type: :model do
-
  context 'password' do
     it 'is invalid without password' do
-      user = FactoryGirl.build(:user, password: nil)
+      user = FactoryGirl.build(:blank_user)
       user.valid?
       expect(user.errors[:password]).to include("can't be blank")
     end
 
     it 'is invalid without password_confirmation' do
-      user = FactoryGirl.build(:user, password_confirmation: nil)
+      user = FactoryGirl.build(:blank_user)
       user.valid?
       expect(user.errors[:password_confirmation]).to include("can't be blank")
     end
@@ -27,10 +26,10 @@ RSpec.describe User, type: :model do
       expect(user.errors[:password]).to include('is too short (minimum is 6 characters)')
     end
   end
- 
+
   context 'email' do
     it 'is invalid without email' do
-      user = FactoryGirl.build(:user, email: nil)
+      user = FactoryGirl.build(:blank_user)
       user.valid?
       expect(user.errors[:email]).to include("can't be blank")
     end
@@ -51,7 +50,7 @@ RSpec.describe User, type: :model do
 
   context 'user_name' do
     it 'is invalid without user_name' do
-      user = FactoryGirl.build(:user, user_name: nil)
+      user = FactoryGirl.build(:blank_user)
       user.valid?
       expect(user.errors[:user_name]).to include("can't be blank")
     end
