@@ -1,0 +1,15 @@
+.col-md-3
+  .panel.panel-default
+    .panel-heading
+      = link_to product.name, user_product_path(@user, product)
+    .panel-body
+      %p
+        Description:
+        = product.description
+      %p
+        Price:
+        = product.price
+      %p
+        Image url:
+        = product.image_url
+

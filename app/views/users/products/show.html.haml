@@ -1,0 +1,11 @@
+%p
+  = @product.name
+%p
+  = @product.description
+%p
+  = @product.price
+%p
+  = @product.image_url
+= link_to 'Edit', edit_user_product_path(@user, @product)
+\|
+= link_to 'Back', user_products_path(@user)
