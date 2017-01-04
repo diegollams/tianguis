@@ -7,6 +7,10 @@ class ApplicationController < ActionController::Base
   helper_method :current_user
 
   def authorize
-    redirect_to login_path unless current_user
+    unless current_user
+      flash[:danger] = 'Log in first'
+      redirect_to login_path
+    end
+
   end
 end
