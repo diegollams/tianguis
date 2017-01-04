@@ -47,6 +47,7 @@ group :development, :test do
   gem 'capybara'
   gem 'chromedriver-helper'
   gem 'rails-controller-testing'
+  gem 'shoulda-matchers', '~> 3.1'
 end
 
 group :development do

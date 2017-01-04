@@ -1,0 +1,11 @@
+%h3.text-center Sign up
+
+= simple_form_for @user, url: '/signup' do |f|
+  = f.input :user_name
+  = f.input :email, placeholder: 'user@domain.com'
+  = f.input :password, hint: 'Minimum length 6.'
+  = f.input :password_confirmation
+  = f.button :submit
+
+
+
