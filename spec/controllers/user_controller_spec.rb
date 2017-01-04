@@ -17,20 +17,25 @@ RSpec.describe UserController, type: :controller do
 
   describe 'Post #create' do
     context 'with valid attributes' do
+
       it 'saves the user to the database' do
         expect{
           post :create, params: {user: FactoryGirl.attributes_for(:user)}
         }.to change(User, :count).by(1)
       end
 
-      it 'redirect to root_path' do
-        post :create, params: {user: FactoryGirl.attributes_for(:user)}
-        expect(response).to redirect_to root_path
-      end
+      describe 'same request' do
+        before {post :create, params: {user: FactoryGirl.attributes_for(:user)}}
 
-      it 'adds flash[:success]' do
-        post :create, params: {user: FactoryGirl.attributes_for(:user)}
-        expect(flash[:success]).to eq 'User created'
+        it 'redirect to root_path' do
+          expect(response).to redirect_to root_path
+        end
+
+        it 'adds flash[:success]' do
+          expect(flash[:success]).to eq 'User created'
+        end
+
+        it { is_expected.to set_session }
       end
     end
 
@@ -41,14 +46,20 @@ RSpec.describe UserController, type: :controller do
         }.not_to change(User, :count)
       end
 
-      it 'renders the n :new template' do
-        post :create, params: {user: FactoryGirl.attributes_for(:blank_user)}
-        expect(response).to render_template :new
-      end
+      describe 'same request' do
+        before { post :create, params: {user: FactoryGirl.attributes_for(:blank_user)} }
+        it 'renders the n :new template' do
+          expect(response).to render_template :new
+        end
 
-      it 'add flash[:notice]' do
-        post :create, params: {user: FactoryGirl.attributes_for(:blank_user)}
-        expect(flash[:alert]).to eq 'Invalid user'
+        it 'add flash[:notice]' do
+          expect(flash[:alert]).to eq 'Invalid user'
+        end
+
+        it 'not set user id in session' do
+          expect(session[:user_ud]).to be_nil
+        end
+
       end
     end
   end
