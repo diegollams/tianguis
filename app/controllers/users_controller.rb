@@ -1,4 +1,4 @@
-class UserController < ApplicationController
+class UsersController < ApplicationController
   def new
     @user = User.new
   end
@@ -9,6 +9,7 @@ class UserController < ApplicationController
       session[:user_id] = @user.id
       flash[:success] = 'User created'
       redirect_to root_path, notice: ''
+      SignupMailerWorker.perform_async(@user.id)
     else
       flash[:alert] = 'Invalid user'
       render :new
