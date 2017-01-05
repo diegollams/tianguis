@@ -19,6 +19,7 @@ class ProductValidator
     @save
   end
 
+
   private
     def less_than_limit_for_today
       # if user is nil let validator save and this will adds normal product errors

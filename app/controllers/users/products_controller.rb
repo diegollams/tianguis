@@ -1,5 +1,5 @@
 class Users::ProductsController < ApplicationController
-  require 'product_validator'
+  require 'validators/product_validator'
   before_action :authorize
   before_action :set_product, only: [:show, :edit, :update, :destroy]
   before_action :find_user
