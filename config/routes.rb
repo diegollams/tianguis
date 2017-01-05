@@ -1,8 +1,8 @@
 Rails.application.routes.draw do
 
   resources :products, only: [:index, :show]
-  get '/signup' => 'user#new'
-  post '/signup' => 'user#create'
+  get '/signup' => 'users#new'
+  post '/signup' => 'users#create'
 
   resources :users do
     resources :products, controller: 'users/products'
@@ -15,4 +15,7 @@ Rails.application.routes.draw do
   get   'home/index'
 
   root  'home#index'
+
+  require 'sidekiq/web'
+  mount Sidekiq::Web => '/sidekiq'
 end

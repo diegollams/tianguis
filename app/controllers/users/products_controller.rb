@@ -21,6 +21,7 @@ class Users::ProductsController < ApplicationController
     @product = Product.new(product_params)
     @product.user = @user
       if @product.save
+        NewProductWorker.perform_async(@user.id, @product.id)
         redirect_to user_product_path(@user, @product), notice: 'Product was successfully created.'
       else
         render :new
