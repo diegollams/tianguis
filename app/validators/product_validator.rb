@@ -25,7 +25,6 @@ class ProductValidator
       return true if @product.user.nil? || @product.user.products.count < @limit
       last = @product.user.products.limit(@limit).order(created_at: :desc).first
       if Date.today === last.created_at.to_date
-        puts 'caca'
         @product.errors[:base] << "You already create #{@limit} products today"
         false
       else
