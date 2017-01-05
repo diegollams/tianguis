@@ -3,6 +3,15 @@
     .panel.panel-heading
       = link_to product.name, product_path(product)
     .panel-body
-      %p= product.description
-      %p= product.price
-      %p= product.image_url
+      %p
+        User:
+        = product.user.user_name
+      %p
+        Description:
+        = product.description
+      %p
+        Price:
+        = product.price
+      %p
+        Image:
+        = product.image_url

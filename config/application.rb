@@ -8,6 +8,8 @@ Bundler.require(*Rails.groups)
 
 module Tianguis
   class Application < Rails::Application
+    config.autoload_paths << Rails.root.join('lib')
+    config.autoload_paths += Dir["#{Rails.root}/lib"]
     config.active_job.queue_adapter = :sidekiq
     config.generators do|g|
       g.test_framework :rspec,
