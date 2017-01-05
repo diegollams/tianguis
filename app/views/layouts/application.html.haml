@@ -6,6 +6,13 @@
     = stylesheet_link_tag    'application', media: 'all', 'data-turbolinks-track': 'reload'
     = javascript_include_tag 'application', 'data-turbolinks-track': 'reload'
   %body
+    - if current_user
+      = nav_bar responsive: true do
+        = menu_group do
+          = menu_item "Feed", products_path
+          = menu_item "Mis productos", user_products_path(current_user)
+        = menu_group pull: :right do
+          = menu_item "Logout", logout_path
     .container
       = bootstrap_flash
       = yield
