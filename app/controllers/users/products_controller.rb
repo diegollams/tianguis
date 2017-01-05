@@ -24,11 +24,12 @@ class Users::ProductsController < ApplicationController
     product_validator = ProductValidator.new(product)
     @product = product_validator.create
     if product_validator.saved?
-      puts @product.id
+      NewProductWorker.perform_async(@user.id, @product.id)
       redirect_to user_product_path(@user, @product), notice: 'Product was successfully created.'
     else
       render :new
     end
+
   end
 
   def update
