@@ -1,4 +1,5 @@
 class Users::ProductsController < ApplicationController
+  require 'product_validator'
   before_action :authorize
   before_action :set_product, only: [:show, :edit, :update, :destroy]
   before_action :find_user
@@ -18,13 +19,16 @@ class Users::ProductsController < ApplicationController
   end
 
   def create
-    @product = Product.new(product_params)
-    @product.user = @user
-      if @product.save
-        redirect_to user_product_path(@user, @product), notice: 'Product was successfully created.'
-      else
-        render :new
-      end
+    product = Product.new(product_params)
+    product.user = @user
+    product_validator = ProductValidator.new(product)
+    @product = product_validator.create
+    if product_validator.saved?
+      puts @product.id
+      redirect_to user_product_path(@user, @product), notice: 'Product was successfully created.'
+    else
+      render :new
+    end
   end
 
   def update
