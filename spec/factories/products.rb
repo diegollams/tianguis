@@ -5,6 +5,13 @@ FactoryGirl.define do
     image_url "MyString"
     price 9.99
     user
-    # association :user, factory: :user
+
+    factory :blank_product do
+      name nil
+      description nil
+      image_url nil
+      price nil
+      user
+    end
   end
 end

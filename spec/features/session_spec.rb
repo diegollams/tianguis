@@ -2,11 +2,16 @@ require 'rails_helper'
 
 feature 'Session signin' do
   before { @user = FactoryGirl.create(:user)}
-  scenario 'valid user login' do
+
+  def login
     visit login_path
     find('#email').set(@user.email)
     find('#password').set('secret')
     click_button 'Submit'
+  end
+
+  scenario 'valid user login' do
+    login
     expect(current_path).to eq root_path
     expect(page).to have_content 'User login'
   end
@@ -18,5 +23,11 @@ feature 'Session signin' do
     click_button 'Submit'
     expect(current_path).to eq login_path
     expect(page).to have_content 'Invalid login'
+  end
+
+  scenario 'user login then logout' do
+    login
+    click_link 'Logout'
+    expect(current_path).to eq root_path
   end
 end
